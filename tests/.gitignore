@@ -1,0 +1,4 @@
+__pycache__/
+.pytest_cache/
+dados_agua.json
+dados_teste.json
