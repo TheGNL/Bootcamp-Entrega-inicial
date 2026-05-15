@@ -1,5 +1,8 @@
 # CLI Lembrete de Hidratação 💧
 
+🚀 Projeto da Etapa Intermediária concluído!
+Link para Download/Acesso:https://github.com/TheGNL/Bootcamp-Entrega-inicial/releases/tag/v1.0.0
+
 ## Descrição do Problema Real
 A desidratação leve e crônica afeta a saúde de milhares de pessoas, causando fadiga, dores de cabeça e perda de foco. Muitas vezes, isso ocorre simplesmente porque as pessoas (especialmente quem trabalha no computador o dia todo) esquecem de beber água durante a rotina corrida.
 
