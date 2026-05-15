@@ -18,11 +18,30 @@ def salvar_dados(dados):
     with open(ARQUIVO_DADOS, 'w') as f:
         json.dump(dados, f)
 
+import requests
+
+def obter_temperatura_cidade(cidade="Sao Paulo"):
+    # Certifique-se de que a chave está EXATAMENTE assim, entre aspas
+    API_KEY = "054ef6946d5ae2b2cf39fb285a8298b2" 
+    URL = f"http://api.openweathermap.org/data/2.5/weather?q={cidade}&appid={API_KEY}&units=metric"
+    
+    try:
+        resposta = requests.get(URL)
+        # Se a chave estiver errada, isso vai imprimir o erro real no terminal
+        if resposta.status_code != 200:
+            print(f"\nErro na API: {resposta.status_code} - {resposta.text}")
+            return None
+            
+        dados = resposta.json()
+        return dados['main']['temp']
+    except Exception as e:
+        print(f"Erro de conexão: {e}")
+        return None
 
 def adicionar_agua(ml):
     """Adiciona a quantidade de água bebida."""
     if ml <= 0:
-        raise ValueError("A quantidade deve ser maior que zero.")
+        raise ValueError("A quantidade de água deve ser maior que zero.")
     dados = carregar_dados()
     dados["total_ml"] += ml
     salvar_dados(dados)
@@ -36,6 +55,9 @@ def verificar_status():
 
 
 def main():
+    temp = obter_temperatura_cidade("Sao Paulo")
+    if temp and temp > 30:
+        print(f"Está calor ({temp}°C)! Sugerimos beber 500ml a mais hoje.")
     desc = "CLI de Autocuidado: Lembrete de Hidratação"
     parser = argparse.ArgumentParser(description=desc)
     parser.add_argument(
@@ -48,6 +70,7 @@ def main():
         action='store_true',
         help="Mostra o status atual de hidratação"
     )
+    
 
     args = parser.parse_args()
 
